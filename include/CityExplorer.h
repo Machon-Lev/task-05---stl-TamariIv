@@ -1,34 +1,30 @@
 #pragma once
 #include <map>
 #include <string>
+#include <algorithm>
+#include <iterator>
+#include <cmath>
+#include <stdexcept>
 #include "Coordinate.h"
 
-//struct City {
-//	std::string _name;
-//	Coordinate coord;
-//};
-
 // Distance function type
-using DistanceFunction = int (*)(const Coordinate&, const Coordinate&);
+using DistanceFunction = double (*)(const Coordinate&, const Coordinate&);
 
-std::map<int, DistanceFunction> distanceMap = {
-    {0, &euclideanDistance},
-    {1, &chebyshevDistance},
-    {2, &manhattanDistance}
-};
 
 class CityExplorer {
 private:
 	std::multimap<std::string, Coordinate> _cities;
-	std::map<Coordinate, std::string> _cities_reversed;
+	std::multimap<Coordinate, std::string> _cities_reversed;
+    static std::map<int, DistanceFunction> distanceFunctions;
 
+public:
 	void addCity(std::string name, Coordinate coord);
-    void explore(std::string name, float radius, DistanceFunction dfunc);
+    std::map<Coordinate, std::string> explore(std::string name, float radius, int funcChoice);
 
     // Distance calculation
-    double euclideanDistance(const Coordinate& coord1, const Coordinate& coord2) const;
-    int chebyshevDistance(const Coordinate& coord1, const Coordinate& coord2) const;
-    int manhattanDistance(const Coordinate& coord1, const Coordinate& coord2) const;
+    static double euclideanDistance(const Coordinate& coord1, const Coordinate& coord2);
+    static double chebyshevDistance(const Coordinate& coord1, const Coordinate& coord2);
+    static double manhattanDistance(const Coordinate& coord1, const Coordinate& coord2);
 
 
 };
