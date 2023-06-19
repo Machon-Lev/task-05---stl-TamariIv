@@ -2,7 +2,7 @@
 
 bool Coordinate::operator==(const Coordinate& other) const
 {
-    return _x == other._x && _x == other._x;
+    return _x == other._x && _y == other._y;
 }
 
 bool Coordinate::operator!=(const Coordinate& other) const
@@ -19,4 +19,13 @@ bool Coordinate::operator<(const Coordinate& other) const
         return _x < other._x;
     }
     return false;
+}
+
+
+Coordinate& Coordinate::operator=(const Coordinate& other) {
+    if (this != &other) {
+        _x = other._x;
+        _y = other._y;
+    }
+    return *this;
 }
