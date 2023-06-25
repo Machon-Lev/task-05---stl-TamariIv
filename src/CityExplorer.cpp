@@ -7,6 +7,11 @@ std::map<int, DistanceFunction> CityExplorer::distanceFunctions = {
    {2, &manhattanDistance}
 };
 
+CityExplorer::CityExplorer()
+{
+    cityCount = 0;
+}
+
 void CityExplorer::addCity(std::string name, Coordinate coord)
 {
     _cities_reversed.emplace(coord, name);
@@ -14,9 +19,9 @@ void CityExplorer::addCity(std::string name, Coordinate coord)
     cityCount++;
 }
 
-std::map<Coordinate, std::string> CityExplorer::explore(std::string name, float radius, int funcChoice)
+std::multimap<Coordinate, std::string> CityExplorer::explore(std::string name, float radius, int funcChoice)
 {    
-    std::map<Coordinate, std::string> filtered;
+    std::multimap<Coordinate, std::string> filtered;
     auto cityCoord = _cities.equal_range(name).first->second;
     std::copy_if(_cities_reversed.begin(), _cities_reversed.end(), std::inserter(filtered, filtered.end()), 
         [funcChoice, cityCoord, name, radius](const auto& pair) {
@@ -39,6 +44,11 @@ int CityExplorer::northernCities(std::string name)
 int CityExplorer::getCityCount()
 {
     return this->cityCount;
+}
+
+bool CityExplorer::cityExists(std::string name)
+{
+    return _cities.find(name) != _cities.end();
 }
 
 // Calculate Euclidean distance between two coordinates

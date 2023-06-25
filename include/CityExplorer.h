@@ -19,11 +19,14 @@ private:
     static std::map<int, DistanceFunction> distanceFunctions;
 
 public:
+    CityExplorer();
 	void addCity(std::string name, Coordinate coord);
-    std::map<Coordinate, std::string> explore(std::string name, float radius, int funcChoice);
+    std::multimap<Coordinate, std::string> explore(std::string name, float radius, int funcChoice);
     int northernCities(std::string name);
     int getCityCount();
+    bool cityExists(std::string name);
 
+private:
     // Distance calculation
     static double euclideanDistance(const Coordinate& coord1, const Coordinate& coord2);
     static double chebyshevDistance(const Coordinate& coord1, const Coordinate& coord2);
