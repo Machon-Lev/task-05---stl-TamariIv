@@ -15,11 +15,14 @@ class CityExplorer {
 private:
 	std::multimap<std::string, Coordinate> _cities;
 	std::multimap<Coordinate, std::string> _cities_reversed;
+    int cityCount;
     static std::map<int, DistanceFunction> distanceFunctions;
 
 public:
 	void addCity(std::string name, Coordinate coord);
     std::map<Coordinate, std::string> explore(std::string name, float radius, int funcChoice);
+    int northernCities(std::string name);
+    int getCityCount();
 
     // Distance calculation
     static double euclideanDistance(const Coordinate& coord1, const Coordinate& coord2);
