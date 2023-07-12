@@ -1,7 +1,6 @@
 #include "..\include\CityExplorer.h"
 
-
-std::map<int, DistanceFunction> CityExplorer::distanceFunctions = {
+std::map<int, std::function<double(const Coordinate&, const Coordinate&)>> CityExplorer::distanceFunctions = {
    {0, &euclideanDistance},
    {1, &chebyshevDistance},
    {2, &manhattanDistance}

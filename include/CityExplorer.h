@@ -5,10 +5,9 @@
 #include <iterator>
 #include <cmath>
 #include <stdexcept>
+#include <functional>
 #include "Coordinate.h"
 
-// Distance function type
-using DistanceFunction = double (*)(const Coordinate&, const Coordinate&);
 
 
 class CityExplorer {
@@ -16,7 +15,9 @@ private:
 	std::multimap<std::string, Coordinate> _cities;
 	std::multimap<Coordinate, std::string> _cities_reversed;
     int cityCount;
-    static std::map<int, DistanceFunction> distanceFunctions;
+
+    // A dictionary that will hold the distance functions according to their representing number
+    static std::map<int, std::function<double(const Coordinate&, const Coordinate&)>> distanceFunctions;
 
 public:
     CityExplorer();
